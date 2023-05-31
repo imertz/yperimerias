@@ -68,7 +68,11 @@ export async function getInterestRates(
         "Access-Control-Allow-Headers": "*",
         "Access-Control-Allow-Methods": "*",
       },
-      referrer: "no-referrer",
+      referrerPolicy: "origin",
+      body: null,
+      method: "GET",
+      mode: "cors",
+      credentials: "include",
     }
   );
   const text = await html.text();

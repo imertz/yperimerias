@@ -1,6 +1,6 @@
 {
   "name": "yperimerias",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Calculate the interest",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -23,7 +23,5 @@
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
   },
-  "dependencies": {
-  
-  }
+  "dependencies": {}
 }

@@ -126,12 +126,3 @@ async function getInterestRates(
   }, 0);
   return [...result, { totalInterest: totalInterest.toFixed(2), interest: "" }];
 }
-
-const startDate = "2022-12-01";
-const endDate = "2023-03-31";
-
-const filteredRates = getInterestRates(startDate, endDate, 1000);
-
-filteredRates.then((rates) => {
-  console.log(rates);
-});

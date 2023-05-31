@@ -1,0 +1,29 @@
+{
+    "name": "yperimerias",
+    "version": "0.0.1",
+    "description": "Calculate the interest",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsup index.ts --format cjs,esm --dts",
+        "release": "pnpm run build && changeset publish",
+        "lint": "tsc"
+      },
+      "keywords": [],
+      "author": "Ioannis Mertzanis",
+      "license": "MIT",
+      "devDependencies": {
+        "@changesets/cli": "^2.26.1",
+        "@types/node": "^18.16.0",
+      
+        "cli": "link:@@changesets/cli",
+        "tsup": "^6.7.0",
+        "typescript": "^5.0.4"
+      },
+      "dependencies": {
+        "uuid": "^9.0.0"
+      }
+
+
+}

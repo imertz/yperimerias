@@ -53,7 +53,7 @@ function parseTableData(tableString: any) {
   return data;
 }
 
-async function getInterestRates(
+export async function getInterestRates(
   startDate: string,
   endDate: string,
   amount: number

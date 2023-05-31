@@ -8,7 +8,11 @@
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
     "release": "pnpm run build && changeset publish",
-    "lint": "tsc"
+    "lint": "tsc",
+    "publish-patch": "git stash && npm version patch && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
+    "publish-minor": "git stash && npm version minor && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
+    "publish-major": "git stash && npm version major && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish"
+
   },
   "keywords": [],
   "author": "Ioannis Mertzanis",
@@ -20,5 +24,7 @@
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
 }

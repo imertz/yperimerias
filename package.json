@@ -1,6 +1,6 @@
 {
   "name": "yperimerias",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Calculate the interest",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -12,7 +12,6 @@
     "publish-patch": "git stash && npm version patch && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
     "publish-minor": "git stash && npm version minor && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
     "publish-major": "git stash && npm version major && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish"
-
   },
   "keywords": [],
   "author": "Ioannis Mertzanis",

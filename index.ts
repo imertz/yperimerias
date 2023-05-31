@@ -61,13 +61,23 @@ export async function getInterestRates(
   const html = await fetch(
     "https://www.bankofgreece.gr/statistika/xrhmatopistwtikes-agores/ekswtrapezika-epitokia",
     {
-      // no-cors, *cors, same-origin
       headers: {
-        "Content-Type": "text/html",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-        "Access-Control-Allow-Methods": "*",
+        accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "accept-language": "en-GB,en;q=0.9,en-US;q=0.8,el;q=0.7,fr;q=0.6",
+        "cache-control": "max-age=0",
+        "if-modified-since": "Wed, 31 May 2023 17:58:53 GMT",
+        "sec-ch-ua":
+          '"Microsoft Edge";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"macOS"',
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "cross-site",
+        "sec-fetch-user": "?1",
+        "upgrade-insecure-requests": "1",
       },
+      referrer: "https://www.google.com/",
       referrerPolicy: "origin",
       body: null,
       method: "GET",

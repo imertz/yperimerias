@@ -61,11 +61,14 @@ export async function getInterestRates(
   const html = await fetch(
     "https://www.bankofgreece.gr/statistika/xrhmatopistwtikes-agores/ekswtrapezika-epitokia",
     {
-      referrerPolicy: "origin",
-      body: null,
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
+      // no-cors, *cors, same-origin
+      headers: {
+        "Content-Type": "text/html",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "*",
+      },
+      referrer: "no-referrer",
     }
   );
   const text = await html.text();

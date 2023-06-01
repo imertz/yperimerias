@@ -1,6 +1,6 @@
 {
   "name": "yperimerias",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "Calculate the interest",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

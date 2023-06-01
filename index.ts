@@ -1,3 +1,4 @@
+import { start } from "repl";
 import rates from "./rates.json";
 const ratesArray = rates as Rate[];
 
@@ -43,10 +44,18 @@ export function getInterestRates(
         }
     )[]
   >((result, rate) => {
+    // add 6 hours to the date to make sure it's the same day
+    console.log(rate.startDate, rate.endDate, startDate, endDate);
     const rateStartDate = new Date(rate.startDate as string);
+    rateStartDate.setHours(rateStartDate.getHours() + 6);
     const rateEndDate = new Date(rate.endDate as string);
+    rateEndDate.setHours(rateEndDate.getHours() + 6);
     const inputStartDate = new Date(startDate);
+    inputStartDate.setHours(inputStartDate.getHours() + 6);
     const inputEndDate = new Date(endDate);
+    inputEndDate.setHours(inputEndDate.getHours() + 6);
+
+    console.log(rateStartDate, rateEndDate, inputStartDate, inputEndDate);
 
     if (rateEndDate < inputStartDate || rateStartDate > inputEndDate) {
       return result;

@@ -1,7 +1,7 @@
 import rates from "./rates.json";
 const ratesArray = rates as Rate[];
 
-console.log('hey');
+console.log("hey");
 
 interface Rate {
   startDate: string;
@@ -17,11 +17,11 @@ interface Result {
   interest: string;
 }
 
-export async function getInterestRates(
+export function getInterestRates(
   startDate: string,
   endDate: string,
   amount: number
-): Promise<(Result | { totalInterest: string; interest: string })[]> {
+): (Result | { totalInterest: string; interest: string })[] {
   const result = ratesArray.reduce<
     (Result | { totalInterest: string; interest: string })[]
   >((result, rate) => {
@@ -57,7 +57,6 @@ export async function getInterestRates(
     }
     const interest =
       (amount * (interestRate ? interestRate : 0) * (days + 1)) / daysInYear;
-    console.log(startDateToUse);
 
     result.push({
       startDate: startDateToUse.toISOString().split("T")[0] as string,
@@ -76,3 +75,5 @@ export async function getInterestRates(
   }, 0);
   return [...result, { totalInterest: totalInterest.toFixed(2), interest: "" }];
 }
+
+console.log(getInterestRates("2020-01-01", "2020-12-31", 1000));

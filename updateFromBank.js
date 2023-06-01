@@ -27,7 +27,11 @@ function parseTableData(tableString) {
         row.startDate = convertDateFormat(value);
         break;
       case 1:
-        row.endDate = convertDateFormat(value);
+        if (value.trim() === "-") {
+          row.endDate = convertDateFormat("12/12/2100");
+        } else {
+          row.endDate = convertDateFormat(value);
+        }
         break;
       case 4:
         row.dikaiopraktikos = value;

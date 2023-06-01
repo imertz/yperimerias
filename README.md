@@ -1,6 +1,8 @@
 # Interest Rate Calculator
 
-This is an open-source npm package that calculates the default rate of interest. The latest rates are fetched from [www.bankofgreece.gr](www.bankofgreece.gr).
+This is an open-source npm package that calculates the default rate of interest. The latest rates are fetched from [www.bankofgreece.gr](https://www.bankofgreece.gr).
+
+You can test it here [yperimeria.netlify.app](https://yperimeria.netlify.app).
 
 ## Installation
 

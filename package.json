@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && changeset publish",
+    "release": "npm run build && changeset publish",
     "lint": "tsc",
     "publish-patch": "git stash && npm version patch && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
     "publish-minor": "git stash && npm version minor && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
@@ -17,9 +17,7 @@
   "author": "Ioannis Mertzanis",
   "license": "MIT",
   "devDependencies": {
-    "@changesets/cli": "^2.26.1",
     "@types/node": "^18.16.0",
-    "cli": "link:@@changesets/cli",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
   },

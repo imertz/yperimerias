@@ -12,7 +12,7 @@ function convertDateFormat(dateString) {
   const year = parts[2];
   const month = parts[1]?.padStart(2, "0");
   const day = parts[0]?.padStart(2, "0");
-  return `${year}-${month}-${day}`;
+  return `${year}/${month}/${day}`;
 }
 function parseTableData(tableString) {
   const regex = /<td.*?>(.*?)<\/td>/g;

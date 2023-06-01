@@ -7,8 +7,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && changeset publish",
-    "lint": "tsc"
+    "lint": "tsc",
+    "publish-patch": "npm run build && git stash && npm version patch && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
+    "publish-minor": "npm run build && git stash && npm version minor && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish",
+    "publish-major": "npm run build && git stash && npm version major && git stash pop && git commit -am 'chore(release): publish new version' && git push && npm publish"
   },
   "keywords": [],
   "author": "Ioannis Mertzanis",

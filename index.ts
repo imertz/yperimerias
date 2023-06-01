@@ -30,6 +30,8 @@ export function getInterestRates(
       yperInterest: string;
     }
 )[] {
+  startDate = startDate.replace(/-/g, "/");
+  endDate = endDate.replace(/-/g, "/");
   const result = ratesArray.reduce<
     (
       | Result

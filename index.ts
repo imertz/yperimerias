@@ -1,7 +1,7 @@
 import rates from "./rates.json";
 const ratesArray = rates as Rate[];
 
-console.log('Nice');
+console.log('hey');
 
 interface Rate {
   startDate: string;

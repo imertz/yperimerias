@@ -75,10 +75,12 @@ export function getInterestRates(
       daysInYear = 366;
     }
     const interest =
-      (amount * (interestRate ? interestRate : 0) * (days + 1)) / daysInYear;
+      ((amount * (interestRate ? interestRate : 0) * (days + 1)) / daysInYear) *
+      100;
     const yperInterest =
-      (amount * (yperInterestRate ? yperInterestRate : 0) * (days + 1)) /
-      daysInYear;
+      ((amount * (yperInterestRate ? yperInterestRate : 0) * (days + 1)) /
+        daysInYear) *
+      100;
 
     result.push({
       startDate: startDateToUse.toISOString().split("T")[0] as string,

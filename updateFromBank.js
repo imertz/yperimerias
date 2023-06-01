@@ -26,16 +26,20 @@ fetch(
     mode: "cors",
     credentials: "include",
   }
-).then((response) => {
-  response.text().then((text) => {
-    const ratesArray = parseTableData(text.toString());
-    // write to file
-    fs.writeFile("./rates.json", JSON.stringify(ratesArray), function (err) {
-      if (err) throw err;
-      console.log("Saved!");
+)
+  .then((response) => {
+    response.text().then((text) => {
+      const ratesArray = parseTableData(text.toString());
+      // write to file
+      fs.writeFile("./rates.json", JSON.stringify(ratesArray), function (err) {
+        if (err) throw err;
+        console.log("Saved!");
+      });
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});
 
 function convertDateFormat(dateString) {
   const parts = dateString.split("/");

@@ -15,15 +15,33 @@ interface Result {
   endDate: string;
   interestRate: string;
   interest: string;
+  yperInterestRate: string;
+  yperInterest: string;
 }
 
 export function getInterestRates(
   startDate: string,
   endDate: string,
   amount: number
-): (Result | { totalInterest: string; interest: string })[] {
+): (
+  | Result
+  | {
+      totalInterest: string;
+      interest: string;
+      totalYperInterest: string;
+      yperInterest: string;
+    }
+)[] {
   const result = ratesArray.reduce<
-    (Result | { totalInterest: string; interest: string })[]
+    (
+      | Result
+      | {
+          totalInterest: string;
+          interest: string;
+          totalYperInterest: string;
+          yperInterest: string;
+        }
+    )[]
   >((result, rate) => {
     const rateStartDate = new Date(rate.startDate as string);
     const rateEndDate = new Date(rate.endDate as string);
@@ -42,6 +60,9 @@ export function getInterestRates(
     const interestRate =
       rate.dikaiopraktikos &&
       parseFloat(rate.dikaiopraktikos.replace(",", ".")) / 100;
+    const yperInterestRate =
+      rate.yperimerias && parseFloat(rate.yperimerias.replace(",", ".")) / 100;
+
     const days = Math.floor(
       (endDateToUse.getTime() - startDateToUse.getTime()) /
         (1000 * 60 * 60 * 24)
@@ -57,12 +78,17 @@ export function getInterestRates(
     }
     const interest =
       (amount * (interestRate ? interestRate : 0) * (days + 1)) / daysInYear;
+    const yperInterest =
+      (amount * (yperInterestRate ? yperInterestRate : 0) * (days + 1)) /
+      daysInYear;
 
     result.push({
       startDate: startDateToUse.toISOString().split("T")[0] as string,
       endDate: endDateToUse.toISOString().split("T")[0] as string,
       interestRate: rate.dikaiopraktikos as string,
       interest: interest.toFixed(2),
+      yperInterestRate: rate.yperimerias as string,
+      yperInterest: yperInterest.toFixed(2),
     });
 
     return result;
@@ -73,7 +99,19 @@ export function getInterestRates(
     }
     return total;
   }, 0);
-  return [...result, { totalInterest: totalInterest.toFixed(2), interest: "" }];
+  const totalYperInterest = result.reduce((total, rate) => {
+    if (typeof rate === "object") {
+      return total + parseFloat(rate.yperInterest);
+    }
+    return total;
+  }, 0);
+  return [
+    ...result,
+    {
+      totalInterest: totalInterest.toFixed(2),
+      interest: "",
+      totalYperInterest: totalYperInterest.toFixed(2),
+      yperInterest: "",
+    },
+  ];
 }
-
-console.log(getInterestRates("2020-01-01", "2020-12-31", 1000));

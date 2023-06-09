@@ -78,16 +78,18 @@ function singlePayment(
     const { exodaSingleCumulative } = e;
     const exodaSingleCumulativeCopy = [...exodaSingleCumulative];
     for (let i = 0; i < exodaSingleCumulativeCopy.length; i++) {
-      const item = exodaSingleCumulativeCopy[i];
-      if (remainder > 0) {
-        if (item.exoda > remainder) {
-          pliromiExodon += fixNumber(remainder);
-          item.exoda = fixNumber(item.exoda - remainder);
-          remainder = 0;
-        } else {
-          pliromiExodon += fixNumber(item.exoda);
-          remainder = fixNumber(remainder - item.exoda);
-          item.exoda = 0;
+      if (exodaSingleCumulativeCopy[i].startDate <= paymentDate) {
+        const item = exodaSingleCumulativeCopy[i];
+        if (remainder > 0) {
+          if (item.exoda > remainder) {
+            pliromiExodon += fixNumber(remainder);
+            item.exoda = fixNumber(item.exoda - remainder);
+            remainder = 0;
+          } else {
+            pliromiExodon += fixNumber(item.exoda);
+            remainder = fixNumber(remainder - item.exoda);
+            item.exoda = 0;
+          }
         }
       }
     }
@@ -196,6 +198,7 @@ export function multiPayments(
       arr[0]?.paymentDate as string,
       inputs
     );
+    console.log("initialPayment", JSON.stringify(initialPayment, null, 2));
 
     for (let i = 1; i <= arr.length; i++) {
       let payment;
@@ -279,3 +282,42 @@ function addMultiTotals(obj: any) {
 
   return obj;
 }
+
+console.log(
+  JSON.stringify(
+    multiPayments(
+      [
+        {
+          amount: 1000,
+          paymentDate: "2012-02-07",
+        },
+        {
+          amount: 1000,
+          paymentDate: "2012-03-07",
+        },
+      ],
+      {
+        ofeiles: [
+          {
+            startDate: "2012-02-06",
+            amount: 1000,
+          },
+          {
+            startDate: "2012-03-06",
+            amount: 1000,
+          },
+        ],
+        exoda: [
+          {
+            startDate: "2012-05-07",
+            amount: 300,
+          },
+        ],
+        endDate: "2023-09-22",
+        exodaTokoforia: true,
+      }
+    ),
+    null,
+    2
+  )
+);

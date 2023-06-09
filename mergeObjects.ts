@@ -80,9 +80,14 @@ export function transformOfeiles(
   return resultsProvided.results.map((item) => {
     const totals = item.totals as Totals[];
     return {
-      startDate: getNextDay(
-        item.results[item.results.length - 1]?.endDate as string
-      ) as string,
+      startDate:
+        (getNextDay(
+          item.results[item.results.length - 1]?.endDate as string
+        ) as string) > (item.results[0]?.startDate as string)
+          ? (getNextDay(
+              item.results[item.results.length - 1]?.endDate as string
+            ) as string)
+          : (item.results[0]?.startDate as string),
       amount: totals[totals.length - 1]?.principal as number,
       tokoiYperimerias: totals[totals.length - 1]?.totalYperInterest
         ? parseFloat(totals[totals.length - 1]?.totalYperInterest as string)
@@ -100,10 +105,16 @@ export function transformExoda(
         ?.totalYperInterest as string
     );
     return {
-      startDate: getNextDay(
-        item.exodaSingleResult[item.exodaSingleResult.length - 1]
-          ?.endDate as string
-      ) as string,
+      startDate:
+        getNextDay(
+          item.exodaSingleResult[item.exodaSingleResult.length - 1]
+            ?.endDate as string
+        ) > (item.exodaSingleResult[0]?.startDate as string)
+          ? getNextDay(
+              item.exodaSingleResult[item.exodaSingleResult.length - 1]
+                ?.endDate as string
+            )
+          : (item.exodaSingleResult[0]?.startDate as string),
       amount: item.exodaSingleCumulative[item.exodaSingleCumulative.length - 1]
         ?.exoda as number,
       previousTokoi: previousTokoi ? previousTokoi : 0,

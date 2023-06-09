@@ -252,29 +252,3 @@ function addMultiTotals(obj: any) {
   }
   return obj;
 }
-console.log(
-  JSON.stringify(
-    multiPayments([], {
-      ofeiles: [
-        {
-          startDate: "2021-01-01",
-          amount: 10000,
-        },
-        {
-          startDate: "2021-02-01",
-          amount: 10000,
-        },
-      ],
-      exoda: [
-        {
-          startDate: "2021-02-01",
-          amount: 100,
-        },
-      ],
-      endDate: "2021-12-31",
-      exodaTokoforia: true,
-    }),
-    null,
-    2
-  )
-);

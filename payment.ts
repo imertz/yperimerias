@@ -6,7 +6,7 @@ import {
   transformExoda,
   transformOfeiles,
 } from "./mergeObjects";
-import { fixNumber } from "./index";
+import { fixNumber, fixNumberString } from "./index";
 
 function singlePayment(
   amount: number,
@@ -215,10 +215,66 @@ export function multiPayments(
 
       initialPayment.payments.pop();
     }
-    return initialPayment;
+    return addMultiTotals(initialPayment);
   } else {
     const results = singlePayment(0, inputs.endDate, inputs);
     results.payments.pop();
-    return results;
+    return addMultiTotals(results);
   }
 }
+
+function addMultiTotals(obj: any) {
+  // if obj does not have totals
+  const totalAmount = obj.results.reduce((acc: number, curr: any) => {
+    return (
+      acc +
+      curr.totals.reduce((acc: number, curr: any) => {
+        return acc + curr.principal;
+      }, 0)
+    );
+  }, 0);
+  const totalTokoi = obj.results.reduce((acc: number, curr: any) => {
+    return (
+      acc +
+      curr.totals.reduce((acc: number, curr: any) => {
+        return acc + fixNumberString(curr.totalYperInterest);
+      }, 0)
+    );
+  }, 0);
+
+  if (!obj.multiTotals) {
+    obj.multiTotals = {
+      startDate: obj.results[0].results[0].startDate,
+      lastDateOfCalculation: obj.results[0].totals[0].lastDateOfCalculation,
+      totalAmount,
+      totalTokoi,
+    };
+  }
+  return obj;
+}
+console.log(
+  JSON.stringify(
+    multiPayments([], {
+      ofeiles: [
+        {
+          startDate: "2021-01-01",
+          amount: 10000,
+        },
+        {
+          startDate: "2021-02-01",
+          amount: 10000,
+        },
+      ],
+      exoda: [
+        {
+          startDate: "2021-02-01",
+          amount: 100,
+        },
+      ],
+      endDate: "2021-12-31",
+      exodaTokoforia: true,
+    }),
+    null,
+    2
+  )
+);

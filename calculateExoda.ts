@@ -1,5 +1,11 @@
 import { ratesArray, Totals, MultiTotals } from "./index";
 
+interface ExResult {
+  exodaSingleResult: ExodaResult[];
+  exodaSingleCumulative: exodaTotals[];
+  multiTotals: exodaMultiTotals;
+}
+
 interface ExodaResult {
   startDate: string;
   endDate: string;
@@ -206,11 +212,6 @@ export function calculateExodaMulti(
       result?.exodaSingleCumulative[0]?.totalYperInterest as string
     );
     multiTotalsAmounts += amount;
-  }
-  interface ExResult {
-    exodaSingleResult: ExodaResult[];
-    exodaSingleCumulative: exodaTotals[];
-    multiTotals: exodaMultiTotals;
   }
 
   const results: {

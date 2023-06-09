@@ -185,6 +185,11 @@ export function multiPayments(
   }
 ) {
   if (arr.length > 0) {
+    arr = arr.sort((a, b) => {
+      return (
+        new Date(a.paymentDate).getTime() - new Date(b.paymentDate).getTime()
+      );
+    });
     let initialPayment = singlePayment(
       arr[0]?.amount as number,
       arr[0]?.paymentDate as string,

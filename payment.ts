@@ -7,6 +7,7 @@ import {
   transformOfeiles,
 } from "./mergeObjects";
 import { fixNumber, fixNumberString } from "./index";
+import { parse } from "path";
 
 function singlePayment(
   amount: number,
@@ -247,13 +248,57 @@ function addMultiTotals(obj: any) {
     );
   }, 0);
 
-  if (!obj.multiTotals) {
-    obj.multiTotals = {
-      startDate: obj.results[0].results[0].startDate,
-      lastDateOfCalculation: obj.results[0].totals[0].lastDateOfCalculation,
-      totalAmount: fixNumber(totalAmount),
-      totalTokoi: fixNumber(totalTokoi),
-    };
+  obj.multiTotals = {
+    startDate: obj.results[0].results[0].startDate,
+    lastDateOfCalculation: obj.results[0].totals[0].lastDateOfCalculation,
+    totalAmount: fixNumber(totalAmount),
+    totalTokoi: fixNumber(totalTokoi),
+  };
+  if (obj.exoda.length > 0) {
+    obj.multiTotals.totalExoda = fixNumber(
+      obj.exoda.reduce((acc: number, curr: any) => {
+        return (
+          acc +
+          curr.exodaSingleCumulative.reduce((acc: number, curr: any) => {
+            return acc + curr.exoda;
+          }, 0)
+        );
+      }, 0)
+    );
+    obj.multiTotals.totalTokoiExodon = fixNumber(
+      obj.exoda.reduce((acc: number, curr: any) => {
+        return (
+          acc +
+          curr.exodaSingleCumulative.reduce((acc: number, curr: any) => {
+            return acc + parseFloat(curr.totalYperInterest);
+          }, 0)
+        );
+      }, 0)
+    );
   }
+
   return obj;
 }
+
+console.log(
+  JSON.stringify(
+    multiPayments([], {
+      ofeiles: [
+        {
+          startDate: "2021-01-01",
+          amount: 10000,
+        },
+      ],
+      exoda: [
+        {
+          startDate: "2021-01-01",
+          amount: 1000,
+        },
+      ],
+      endDate: "2021-02-01",
+      exodaTokoforia: true,
+    }),
+    null,
+    2
+  )
+);

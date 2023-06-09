@@ -12,11 +12,7 @@ export function getInterestRates(
   tokoiYperimerias: number = 0
 ): { results: Result[]; totals: Totals[] } {
   // if the start date is after the end date, throw an error
-  if (new Date(startDate) > new Date(endDate)) {
-    throw new Error(
-      "Η αρχική ημερομηνία δεν μπορεί να είναι μετά την ημερομηνία υπολογισμού"
-    );
-  }
+
   startDate = startDate.replace(/-/g, "/");
   endDate = endDate.replace(/-/g, "/");
 
@@ -48,10 +44,13 @@ export function getInterestRates(
     const yperInterestRate =
       rate.yperimerias && parseFloat(rate.yperimerias.replace(",", ".")) / 100;
 
-    const days = Math.floor(
+    let days = Math.floor(
       (endDateToUse.getTime() - startDateToUse.getTime()) /
         (1000 * 60 * 60 * 24)
     );
+    if (days < 0) {
+      days = -1;
+    }
     let daysInYear = 365;
     // Check if it's a leap year
     if (

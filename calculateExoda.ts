@@ -35,11 +35,6 @@ export function calculateExoda(
   exodaSingleCumulative: exodaTotals[];
   multiTotals?: exodaMultiTotals;
 } {
-  if (new Date(startDate) > new Date(endDate)) {
-    throw new Error(
-      "Η αρχική ημερομηνία δεν μπορεί να είναι μετά την ημερομηνία υπολογισμού"
-    );
-  }
   if (tokoforia) {
     startDate = startDate.replace(/-/g, "/");
     endDate = endDate.replace(/-/g, "/");
@@ -70,10 +65,13 @@ export function calculateExoda(
           rate.yperimerias &&
           parseFloat(rate.yperimerias.replace(",", ".")) / 100;
 
-        const days = Math.floor(
+        let days = Math.floor(
           (endDateToUse.getTime() - startDateToUse.getTime()) /
             (1000 * 60 * 60 * 24)
         );
+        if (days < 0) {
+          days = -1;
+        }
         let daysInYear = 365;
         // Check if it's a leap year
         if (

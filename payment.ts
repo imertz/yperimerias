@@ -246,8 +246,8 @@ function addMultiTotals(obj: any) {
     obj.multiTotals = {
       startDate: obj.results[0].results[0].startDate,
       lastDateOfCalculation: obj.results[0].totals[0].lastDateOfCalculation,
-      totalAmount,
-      totalTokoi,
+      totalAmount: fixNumber(totalAmount),
+      totalTokoi: fixNumber(totalTokoi),
     };
   }
   return obj;
